@@ -12,7 +12,10 @@ app.use(cors());
 app.use('/api/products', ProductRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send(`E-commerce Management Server is running on port ${config.port}!`);
+  res.send({
+    success: true,
+    message: `E-commerce Management Server is running on port 🚀${config.port}🚀`,
+  });
 });
 
 export default app;
