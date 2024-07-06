@@ -18,4 +18,6 @@ const createProductValidationSchema = z.object({
   }),
 });
 
-export default createProductValidationSchema;
+export const ProductValidations = {
+  createProductValidationSchema,
+};
