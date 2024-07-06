@@ -34,7 +34,6 @@ const getAllProducts = async (req: Request, res: Response) => {
       message: 'Products fetched successfully!',
       data: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({
       success: false,
