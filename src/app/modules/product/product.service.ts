@@ -17,13 +17,25 @@ const getSingleProductFromDB = async (productId: string) => {
   return result;
 };
 
-const updateProductFromDB = async (
+/* const updateProductFromDB = async (
   productId: string,
   productData: TProduct,
 ) => {
   const result = await Product.findByIdAndUpdate(productId, productData, {
     new: true,
   });
+  return result;
+}; */
+
+const updateProductFromDB = async (
+  productId: string,
+  productData: Partial<TProduct>,
+) => {
+  const result = await Product.findByIdAndUpdate(
+    productId,
+    { $set: productData },
+    { new: true, runValidators: true },
+  );
   return result;
 };
 
