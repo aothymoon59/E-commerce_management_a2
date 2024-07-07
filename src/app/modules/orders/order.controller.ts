@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { OrdersHistoryValidations } from './order.validation';
 import { OrdersService } from './order.service';
 import { Types } from 'mongoose';
+import httpStatus from 'http-status';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
@@ -18,13 +19,13 @@ const createOrder = async (req: Request, res: Response) => {
 
     const result = await OrdersService.createOrderIntoDB(convertedData);
 
-    res.status(200).json({
+    res.status(httpStatus.CREATED).json({
       success: true,
       message: 'Order created successfully!',
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: err.message || 'something went wrong',
       error: err,
@@ -35,14 +36,15 @@ const createOrder = async (req: Request, res: Response) => {
 // Retrieve a list of all orders
 const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const result = await OrdersService.getAllOrdersFromDB();
-    res.status(200).json({
+    const { email } = req.query;
+    const result = await OrdersService.getAllOrdersFromDB(email as string);
+    res.status(httpStatus.OK).json({
       success: true,
       message: 'Orders fetched successfully!',
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: err.message || 'something went wrong',
       error: err,

@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { ProductValidations } from './product.validation';
 import { ProductServices } from './product.service';
 import { TProduct } from './product.interface';
+import httpStatus from 'http-status';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
@@ -12,13 +13,13 @@ const createProduct = async (req: Request, res: Response) => {
 
     const result = await ProductServices.createProductIntoDB(zodParsedData);
 
-    res.status(200).json({
+    res.status(httpStatus.CREATED).json({
       success: true,
       message: 'Product created successfully!',
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: err.message || 'something went wrong',
       error: err,
@@ -34,13 +35,13 @@ const getAllProducts = async (req: Request, res: Response) => {
       searchTerm as string,
     );
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       message: 'Products fetched successfully!',
       data: result,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Something went wrong',
       error: error,
@@ -53,13 +54,13 @@ const getSingleProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const result = await ProductServices.getSingleProductFromDB(productId);
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       message: 'Product fetched successfully!',
       data: result,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Something went wrong',
       error: error,
@@ -108,13 +109,13 @@ const updateProduct = async (req: Request, res: Response) => {
       zodParsedData,
     );
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       message: 'Product updated successfully!',
       data: result,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Something went wrong',
       error: error,
@@ -126,13 +127,13 @@ const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     await ProductServices.deleteProductFromDB(productId);
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
       message: 'Product deleted successfully!',
       data: null,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Something went wrong',
       error: error,
