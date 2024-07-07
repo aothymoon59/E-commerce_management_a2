@@ -32,4 +32,22 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-export const OrdersControllers = { createOrder };
+// Retrieve a list of all orders
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const result = await OrdersService.getAllOrdersFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Orders fetched successfully!',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'something went wrong',
+      error: err,
+    });
+  }
+};
+
+export const OrdersControllers = { createOrder, getAllOrders };
