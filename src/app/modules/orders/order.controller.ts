@@ -3,8 +3,6 @@ import { Request, Response } from 'express';
 import { OrdersHistoryValidations } from './order.validation';
 import { OrdersService } from './order.service';
 import { Types } from 'mongoose';
-// import { ProductValidations } from './product.validation';
-// import { ProductServices } from './product.service';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
