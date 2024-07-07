@@ -25,10 +25,16 @@ const createOrder = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+    let status;
+    status = httpStatus.INTERNAL_SERVER_ERROR;
+
+    if (err.message === 'Insufficient quantity available in inventory') {
+      status = httpStatus.BAD_REQUEST;
+    }
+
+    res.status(status).json({
       success: false,
       message: err.message || 'something went wrong',
-      error: err,
     });
   }
 };
