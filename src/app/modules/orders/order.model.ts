@@ -6,7 +6,8 @@ const OrderSchema = new Schema<TOrder>({
     type: String,
   },
   productId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
   },
   price: {
     type: Number,

@@ -1,13 +1,8 @@
-/* {
-    "email": "level2@programming-hero.com",
-    "productId": "5fd67e890b60c903cd8544a3",
-    "price": 999,
-    "quantity": 1
-} */
+import { Types } from 'mongoose';
 
 export type TOrder = {
   email: string;
-  productId: string;
+  productId: Types.ObjectId;
   price: number;
   quantity: number;
 };
