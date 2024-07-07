@@ -1,12 +1,10 @@
 import { z } from 'zod';
 
 const createOrderValidationSchema = z.object({
-  body: z.object({
-    productId: z.string(),
-    quantity: z.number(),
-    buyerName: z.string(),
-    buyDate: z.string(),
-  }),
+  email: z.string(),
+  productId: z.string(),
+  price: z.number(),
+  quantity: z.number(),
 });
 
 export const OrdersHistoryValidations = { createOrderValidationSchema };
